@@ -9,4 +9,4 @@ UPGRADE FROM 1.0.x to 2.0
 
       * Uninstall your pecl installed apcu extensions `pecl uninstall apcu && pecl uninstall apcu_bc`
 
-      * Remove the `apcu.so` and `apc.so` extensions from `/usr/local/etc/valet-php/<version>/php.ini`
+      * Remove the `apcu.so` and `apc.so` extensions from `/opt/homebrew/etc/valet-php/<version>/php.ini`

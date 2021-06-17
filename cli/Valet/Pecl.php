@@ -12,7 +12,7 @@ class Pecl extends AbstractPecl
     const XDEBUG_EXTENSION = 'xdebug';
     const APCU_EXTENSION = 'apcu';
     const APCU_BC_EXTENSION = 'apcu_bc';
-    const GEOIP_EXTENSION = 'geoip';
+    // const GEOIP_EXTENSION = 'geoip';
     const MEMCACHE_EXTENSION = 'memcached';
     const YAML_EXTENSION = 'yaml';
 
@@ -56,14 +56,14 @@ class Pecl extends AbstractPecl
             '5.6' => '4.0.11',
             'extension_type' => self::NORMAL_EXTENSION_TYPE
         ],
-        self::GEOIP_EXTENSION => [
-            '7.4' => '1.1.1',
-            '7.3' => '1.1.1',
-            '7.2' => '1.1.1',
-            '7.1' => '1.1.1',
-            '7.0' => '1.1.1',
-            'extension_type' => self::NORMAL_EXTENSION_TYPE
-        ],
+        // self::GEOIP_EXTENSION => [
+        //     '7.4' => '1.1.1',
+        //     '7.3' => '1.1.1',
+        //     '7.2' => '1.1.1',
+        //     '7.1' => '1.1.1',
+        //     '7.0' => '1.1.1',
+        //     'extension_type' => self::NORMAL_EXTENSION_TYPE
+        // ],
         self::MEMCACHE_EXTENSION => [
             '7.3' => '3.1.3',
             '7.2' => '3.1.3',
@@ -354,16 +354,16 @@ class Pecl extends AbstractPecl
             $pearName = $this->replacePhpWithPear($brewname);
 
             $phpIniPath = str_replace('pear.conf', 'php.ini', $pearConfigPath);
-            $phpDirPath = "/usr/local/share/$pearName";
-            $pearDocDirPath = "/usr/local/share/$pearName/doc";
-            $phpExtensionDirPath = '/usr/local/lib/php/pecl/'.basename($pearConfig['ext_dir']);
-            $phpBinPath = "/usr/local/opt/$brewname/bin";
-            $pearDataDirPath = "/usr/local/share/$pearName/data";
-            $pearCfgDirPath = "/usr/local/share/$pearName/cfg";
-            $pearWwwDirPath = "/usr/local/share/$pearName/htdocs";
-            $pearManDirPath = '/usr/local/share/man';
-            $pearTestDirPath = "/usr/local/share/$pearName/test";
-            $phpBinDirPath = "/usr/local/opt/$brewname/bin/php";
+            $phpDirPath = "/opt/homebrew/share/$pearName";
+            $pearDocDirPath = "/opt/homebrew/share/$pearName/doc";
+            $phpExtensionDirPath = '/opt/homebrew/lib/php/pecl/'.basename($pearConfig['ext_dir']);
+            $phpBinPath = "/opt/homebrew/opt/$brewname/bin";
+            $pearDataDirPath = "/opt/homebrew/share/$pearName/data";
+            $pearCfgDirPath = "/opt/homebrew/share/$pearName/cfg";
+            $pearWwwDirPath = "/opt/homebrew/share/$pearName/htdocs";
+            $pearManDirPath = '/opt/homebrew/share/man';
+            $pearTestDirPath = "/opt/homebrew/share/$pearName/test";
+            $phpBinDirPath = "/opt/homebrew/opt/$brewname/bin/php";
 
             // Check php_ini value of par config.
             if (empty($pearConfig['php_ini']) || $pearConfig['php_ini'] !== $phpIniPath) {

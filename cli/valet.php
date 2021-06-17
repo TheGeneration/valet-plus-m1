@@ -934,11 +934,11 @@ if (is_dir(VALET_HOME_PATH)) {
     $app->command('logs [service]', function ($service) {
         $logs = [
             'php' => '$HOME/.valet/Log/php.log',
-            'php-fpm' => '/usr/local/var/log/php-fpm.log',
+            'php-fpm' => '/opt/homebrew/var/log/php-fpm.log',
             'nginx' => '$HOME/.valet/Log/nginx-error.log',
             'mysql' => '$HOME/.valet/Log/mysql.log',
-            'mailhog' => '/usr/local/var/log/mailhog.log',
-            'redis' => '/usr/local/var/log/redis.log',
+            'mailhog' => '/opt/homebrew/var/log/mailhog.log',
+            'redis' => '/opt/homebrew/var/log/redis.log',
         ];
 
         if (!isset($logs[$service])) {
