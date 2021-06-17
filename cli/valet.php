@@ -22,7 +22,7 @@ use Symfony\Component\Console\Question\Question;
 Container::setInstance(new Container);
 
 // get current version based on git describe and tags
-$version = new Version('2.1.0', __DIR__ . '/../');
+$version = new Version('2.2.0', __DIR__ . '/../');
 
 $app = new Application('Valet+', $version->getVersion());
 
@@ -934,11 +934,11 @@ if (is_dir(VALET_HOME_PATH)) {
     $app->command('logs [service]', function ($service) {
         $logs = [
             'php' => '$HOME/.valet/Log/php.log',
-            'php-fpm' => '/usr/local/var/log/php-fpm.log',
+            'php-fpm' => '/opt/homebrew/var/log/php-fpm.log',
             'nginx' => '$HOME/.valet/Log/nginx-error.log',
             'mysql' => '$HOME/.valet/Log/mysql.log',
-            'mailhog' => '/usr/local/var/log/mailhog.log',
-            'redis' => '/usr/local/var/log/redis.log',
+            'mailhog' => '/opt/homebrew/var/log/mailhog.log',
+            'redis' => '/opt/homebrew/var/log/redis.log',
         ];
 
         if (!isset($logs[$service])) {

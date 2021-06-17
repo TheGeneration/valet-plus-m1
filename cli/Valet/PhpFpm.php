@@ -13,6 +13,7 @@ class PhpFpm
     const PHP_V72_VERSION = '7.2';
     const PHP_V73_VERSION = '7.3';
     const PHP_V74_VERSION = '7.4';
+    const PHP_V80_VERSION = '8.0';
 
     const SUPPORTED_PHP_FORMULAE = [
         self::PHP_V56_VERSION => self::PHP_FORMULA_NAME . self::PHP_V56_VERSION,
@@ -20,7 +21,8 @@ class PhpFpm
         self::PHP_V71_VERSION => self::PHP_FORMULA_NAME . self::PHP_V71_VERSION,
         self::PHP_V72_VERSION => self::PHP_FORMULA_NAME . self::PHP_V72_VERSION,
         self::PHP_V73_VERSION => self::PHP_FORMULA_NAME . self::PHP_V73_VERSION,
-        self::PHP_V74_VERSION => self::PHP_FORMULA_NAME . self::PHP_V74_VERSION
+        self::PHP_V74_VERSION => self::PHP_FORMULA_NAME . self::PHP_V74_VERSION,
+        self::PHP_V80_VERSION => self::PHP_FORMULA_NAME . self::PHP_V80_VERSION
     ];
 
     const EOL_PHP_VERSIONS = [
@@ -29,7 +31,7 @@ class PhpFpm
         self::PHP_V71_VERSION
     ];
 
-    const LOCAL_PHP_FOLDER = '/usr/local/etc/valet-php/';
+    const LOCAL_PHP_FOLDER = '/opt/homebrew/etc/valet-php/';
 
     public $brew;
     public $cli;
@@ -64,7 +66,7 @@ class PhpFpm
     public function install()
     {
         if (!$this->hasInstalledPhp()) {
-            $this->brew->ensureInstalled($this->getFormulaName(self::PHP_V71_VERSION));
+            $this->brew->ensureInstalled($this->getFormulaName(self::PHP_V72_VERSION));
         }
 
         if (!$this->brew->hasTap(self::VALET_PHP_BREW_TAP)) {
@@ -76,7 +78,7 @@ class PhpFpm
 
         $version = $this->linkedPhp();
 
-        $this->files->ensureDirExists('/usr/local/var/log', user());
+        $this->files->ensureDirExists('/opt/homebrew/var/log', user());
         $this->updateConfiguration();
         $this->pecl->updatePeclChannel();
         $this->pecl->installExtensions($version);
@@ -121,6 +123,7 @@ class PhpFpm
     public function fpmConfigPath()
     {
         $confLookup = [
+            self::PHP_V80_VERSION => self::LOCAL_PHP_FOLDER . '8.0/php-fpm.d/www.conf',
             self::PHP_V74_VERSION => self::LOCAL_PHP_FOLDER . '7.4/php-fpm.d/www.conf',
             self::PHP_V73_VERSION => self::LOCAL_PHP_FOLDER . '7.3/php-fpm.d/www.conf',
             self::PHP_V72_VERSION => self::LOCAL_PHP_FOLDER . '7.2/php-fpm.d/www.conf',
@@ -182,7 +185,7 @@ class PhpFpm
 
         // Relink libjpeg
         info('[libjpeg] Relinking');
-        $this->cli->passthru('sudo ln -fs /usr/local/Cellar/jpeg/8d/lib/libjpeg.8.dylib /usr/local/opt/jpeg/lib/libjpeg.8.dylib');
+        $this->cli->passthru('sudo ln -fs /opt/homebrew/Cellar/jpeg/8d/lib/libjpeg.8.dylib /opt/homebrew/opt/jpeg/lib/libjpeg.8.dylib');
 
         if (!$this->linkPHP($version, $currentVersion)) {
             return;
@@ -211,7 +214,7 @@ class PhpFpm
         // The output is about how many symlinks were created.
         // Sanitize the second half to prevent users from being confused.
         // So the only output would be:
-        // Linking /usr/local/Cellar/valet-php@7.3/7.3.8... 25 symlinks created
+        // Linking /opt/homebrew/Cellar/valet-php@7.3/7.3.8... 25 symlinks created
         // Without the directions to create exports pointing towards the binaries.
         if (strpos($output, 'symlinks created')) {
             $output = substr($output, 0, strpos($output, 'symlinks created') + 8);
@@ -369,11 +372,11 @@ class PhpFpm
      */
     public function linkedPhp()
     {
-        if (!$this->files->isLink('/usr/local/bin/php')) {
+        if (!$this->files->isLink('/opt/homebrew/bin/php')) {
             throw new DomainException("Unable to determine linked PHP.");
         }
 
-        $resolvedPath = $this->files->readLink('/usr/local/bin/php');
+        $resolvedPath = $this->files->readLink('/opt/homebrew/bin/php');
 
         $versions = self::SUPPORTED_PHP_FORMULAE;
 

@@ -11,13 +11,14 @@ class DevTools
     const PV_TOOL = 'pv';
     const GEOIP_TOOL = 'geoip';
     const ZLIB_TOOL = 'zlib';
-
+    const JQ = 'jq';
 
     const SUPPORTED_TOOLS = [
         self::WP_CLI_TOOL,
         self::PV_TOOL,
         self::GEOIP_TOOL,
-        self::ZLIB_TOOL
+        self::ZLIB_TOOL,
+        self::JQ
     ];
 
     public $brew;
@@ -113,16 +114,16 @@ class DevTools
         info('Opening Visual Studio Code');
         $command = false;
 
-        if ($this->files->exists('/usr/local/bin/code')) {
-            $command = '/usr/local/bin/code';
+        if ($this->files->exists('/opt/homebrew/bin/code')) {
+            $command = '/opt/homebrew/bin/code';
         }
 
-        if ($this->files->exists('/usr/local/bin/vscode')) {
-            $command = '/usr/local/bin/vscode';
+        if ($this->files->exists('/opt/homebrew/bin/vscode')) {
+            $command = '/opt/homebrew/bin/vscode';
         }
 
         if (!$command) {
-            throw new Exception('/usr/local/bin/code command not found. Please install it.');
+            throw new Exception('/opt/homebrew/bin/code command not found. Please install it.');
         }
 
         $output = $this->cli->runAsUser($command . ' $(git rev-parse --show-toplevel)');
