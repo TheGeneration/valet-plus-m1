@@ -8,10 +8,10 @@ use MYSQLI_ASSOC;
 
 class Mysql
 {
-    const MYSQL_CONF_DIR = '/usr/local/etc';
-    const MYSQL_CONF = '/usr/local/etc/my.cnf';
+    const MYSQL_CONF_DIR = '/opt/homebrew/etc';
+    const MYSQL_CONF = '/opt/homebrew/etc/my.cnf';
     const MAX_FILES_CONF = '/Library/LaunchDaemons/limit.maxfiles.plist';
-    const MYSQL_DIR = '/usr/local/var/mysql';
+    const MYSQL_DIR = '/opt/homebrew/var/mysql';
     const MYSQL_ROOT_PASSWORD = 'root';
 
     public $brew;

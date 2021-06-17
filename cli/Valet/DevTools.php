@@ -114,16 +114,16 @@ class DevTools
         info('Opening Visual Studio Code');
         $command = false;
 
-        if ($this->files->exists('/usr/local/bin/code')) {
-            $command = '/usr/local/bin/code';
+        if ($this->files->exists('/opt/homebrew/bin/code')) {
+            $command = '/opt/homebrew/bin/code';
         }
 
-        if ($this->files->exists('/usr/local/bin/vscode')) {
-            $command = '/usr/local/bin/vscode';
+        if ($this->files->exists('/opt/homebrew/bin/vscode')) {
+            $command = '/opt/homebrew/bin/vscode';
         }
 
         if (!$command) {
-            throw new Exception('/usr/local/bin/code command not found. Please install it.');
+            throw new Exception('/opt/homebrew/bin/code command not found. Please install it.');
         }
 
         $output = $this->cli->runAsUser($command . ' $(git rev-parse --show-toplevel)');

@@ -41,7 +41,7 @@ jobs:
       # Install the default PHP version (currently: valet-php@7.2).
       - name: '[INSTALL] Brew install valet-php@7.2'
         run: |
-          rm /usr/local/bin/2to3
+          rm /opt/homebrew/bin/2to3
           brew install valet-php@7.2
 
       # Link valet-php@7.2 as default php binary.
@@ -239,6 +239,6 @@ jobs:
       # to manually remove the Cellar files.
       - name: '[INSTALL] Valet fix --reinstall'
         run: |
-          sudo chmod -R 777 /usr/local/Cellar/valet-php@7.2
+          sudo chmod -R 777 /opt/homebrew/Cellar/valet-php@7.2
           ./valet fix --reinstall
 

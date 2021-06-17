@@ -11,7 +11,7 @@ class Nginx
     public $files;
     public $configuration;
     public $site;
-    const NGINX_CONF = '/usr/local/etc/nginx/nginx.conf';
+    const NGINX_CONF = '/opt/homebrew/etc/nginx/nginx.conf';
 
     /**
      * Create a new Nginx instance.
@@ -78,10 +78,10 @@ class Nginx
     {
         $domain = $this->configuration->read()['domain'];
 
-        $this->files->ensureDirExists('/usr/local/etc/nginx/valet');
+        $this->files->ensureDirExists('/opt/homebrew/etc/nginx/valet');
 
         $this->files->putAsUser(
-            '/usr/local/etc/nginx/valet/valet.conf',
+            '/opt/homebrew/etc/nginx/valet/valet.conf',
             str_replace(
                 ['VALET_HOME_PATH', 'VALET_SERVER_PATH', 'VALET_STATIC_PREFIX'],
                 [VALET_HOME_PATH, VALET_SERVER_PATH, VALET_STATIC_PREFIX],
@@ -90,7 +90,7 @@ class Nginx
         );
 
         $this->files->putAsUser(
-            '/usr/local/etc/nginx/fastcgi_params',
+            '/opt/homebrew/etc/nginx/fastcgi_params',
             $this->files->get(__DIR__.'/../stubs/fastcgi_params')
         );
     }

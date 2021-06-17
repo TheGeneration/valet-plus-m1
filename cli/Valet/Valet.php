@@ -7,7 +7,7 @@ class Valet
     public $cli;
     public $files;
 
-    public $valetBin = '/usr/local/bin/valet';
+    public $valetBin = '/opt/homebrew/bin/valet';
 
     /**
      * Create a new Valet instance.

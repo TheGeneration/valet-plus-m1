@@ -31,7 +31,7 @@ class PhpFpm
         self::PHP_V71_VERSION
     ];
 
-    const LOCAL_PHP_FOLDER = '/usr/local/etc/valet-php/';
+    const LOCAL_PHP_FOLDER = '/opt/homebrew/etc/valet-php/';
 
     public $brew;
     public $cli;
@@ -78,7 +78,7 @@ class PhpFpm
 
         $version = $this->linkedPhp();
 
-        $this->files->ensureDirExists('/usr/local/var/log', user());
+        $this->files->ensureDirExists('/opt/homebrew/var/log', user());
         $this->updateConfiguration();
         $this->pecl->updatePeclChannel();
         $this->pecl->installExtensions($version);
@@ -185,7 +185,7 @@ class PhpFpm
 
         // Relink libjpeg
         info('[libjpeg] Relinking');
-        $this->cli->passthru('sudo ln -fs /usr/local/Cellar/jpeg/8d/lib/libjpeg.8.dylib /usr/local/opt/jpeg/lib/libjpeg.8.dylib');
+        $this->cli->passthru('sudo ln -fs /opt/homebrew/Cellar/jpeg/8d/lib/libjpeg.8.dylib /opt/homebrew/opt/jpeg/lib/libjpeg.8.dylib');
 
         if (!$this->linkPHP($version, $currentVersion)) {
             return;
@@ -214,7 +214,7 @@ class PhpFpm
         // The output is about how many symlinks were created.
         // Sanitize the second half to prevent users from being confused.
         // So the only output would be:
-        // Linking /usr/local/Cellar/valet-php@7.3/7.3.8... 25 symlinks created
+        // Linking /opt/homebrew/Cellar/valet-php@7.3/7.3.8... 25 symlinks created
         // Without the directions to create exports pointing towards the binaries.
         if (strpos($output, 'symlinks created')) {
             $output = substr($output, 0, strpos($output, 'symlinks created') + 8);
@@ -372,11 +372,11 @@ class PhpFpm
      */
     public function linkedPhp()
     {
-        if (!$this->files->isLink('/usr/local/bin/php')) {
+        if (!$this->files->isLink('/opt/homebrew/bin/php')) {
             throw new DomainException("Unable to determine linked PHP.");
         }
 
-        $resolvedPath = $this->files->readLink('/usr/local/bin/php');
+        $resolvedPath = $this->files->readLink('/opt/homebrew/bin/php');
 
         $versions = self::SUPPORTED_PHP_FORMULAE;
 
